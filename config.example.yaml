@@ -1,0 +1,10 @@
+# Copy this file to config.yaml and modify it to suit your needs.
+
+# Logging level (debug, info, warn, error)
+log-level: info
+
+# HTTP server configuration
+http:
+  # IPv6 wildcard, listens on all interfaces
+  bind: "[::]"
+  port: 8080

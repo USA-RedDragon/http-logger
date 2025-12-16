@@ -89,7 +89,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_name: Backend Unit Tests
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
           name: backend-test-report-xml
@@ -97,7 +97,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
           name: backend-test-report-html
@@ -133,7 +133,7 @@ jobs:
           flags: backend
           fail_ci_if_error: true
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: always()
         with:
           name: backend-coverage

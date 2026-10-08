@@ -5,5 +5,5 @@ log-level: "info"
 http:
   # Address to listen on. The default, [::], listens on all interfaces
   bind: "[::]"
-  # TCP port to listen on
+  # Port to listen on
   port: 8080

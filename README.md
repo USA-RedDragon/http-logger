@@ -1,5 +1,7 @@
 # http-logger
 
+[![coverage](https://raw.githubusercontent.com/USA-RedDragon/http-logger/main/.github/badges/coverage.svg)](https://github.com/USA-RedDragon/http-logger/actions)
+
 Simple service to log HTTP requests for debugging purposes.
 
 ## Configuration

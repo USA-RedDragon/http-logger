@@ -1,7 +1,7 @@
 github.com/99designs/gqlgen v0.17.84 h1:iVMdiStgUVx/BFkMb0J5GAXlqfqtQ7bqMCYK6v52kQ0=
 github.com/99designs/gqlgen v0.17.84/go.mod h1:qjoUqzTeiejdo+bwUg8unqSpeYG42XrcrQboGIezmFA=
-github.com/USA-RedDragon/configulator/v2 v2.2.1 h1:+ZhHsASNnpT27MIJnSNL1LC6b+4/JjaI/MoKSPk+sdA=
-github.com/USA-RedDragon/configulator/v2 v2.2.1/go.mod h1:L/HGK6Bf1Wr7dbBibAW0zpXhvG0A+7cMI0U9Rz9Hplg=
+github.com/USA-RedDragon/configulator/v2 v2.3.0 h1:sPdkmr2pCn0eBxzlcficsmOgoIlYMYAx4DzZRRbVMKM=
+github.com/USA-RedDragon/configulator/v2 v2.3.0/go.mod h1:L/HGK6Bf1Wr7dbBibAW0zpXhvG0A+7cMI0U9Rz9Hplg=
 github.com/agnivade/levenshtein v1.2.1 h1:EHBY3UOn1gwdy/VbFwgo4cxecRznFk7fKWN1KOX7eoM=
 github.com/agnivade/levenshtein v1.2.1/go.mod h1:QVVI16kDrtSuwcpd0p1+xMC6Z/VfhtCyDIjcwga4/DU=
 github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883 h1:bvNMNQO63//z+xNgfBlViaCIJKLlCJ6/fmUseuG0wVQ=

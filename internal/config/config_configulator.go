@@ -11,6 +11,7 @@ import (
 	configulator "github.com/USA-RedDragon/configulator/v2"
 	cpflag "github.com/USA-RedDragon/configulator/v2/flags/pflag"
 	"github.com/spf13/pflag"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -32,7 +33,7 @@ func ConfigSchema() *configulator.Schema[Config] {
 		DecodeFile:    configDecodeFile,
 	}
 }
-func configApplyDefaults(cfg *Config, set configulator.SetOrigin) error {
+func configApplyDefaults(cfg *Config, sep string, set configulator.SetOrigin) error {
 	cfg.LogLevel = LogLevel("info")
 	set("log-level", configulator.LayerDefault, "default tag")
 	cfg.HTTP.Bind = "[::]"
@@ -41,7 +42,7 @@ func configApplyDefaults(cfg *Config, set configulator.SetOrigin) error {
 	set("http.port", configulator.LayerDefault, "default tag")
 	return nil
 }
-func configDecodeFile(data []byte, u configulator.Unmarshal, cfg *Config, set configulator.SetOrigin, file string) error {
+func configDecodeFile(data []byte, u configulator.Unmarshal, cfg *Config, sep string, set configulator.SetOrigin, file string) error {
 	var sh configShadow
 	if err := u(data, &sh); err != nil {
 		return &configulator.DecodeError{
@@ -49,9 +50,9 @@ func configDecodeFile(data []byte, u configulator.Unmarshal, cfg *Config, set co
 			Path: file,
 		}
 	}
-	return sh.applyTo(cfg, set, file)
+	return sh.applyTo(cfg, sep, set, file)
 }
-func (s *configShadow) applyTo(cfg *Config, set configulator.SetOrigin, file string) error {
+func (s *configShadow) applyTo(cfg *Config, sep string, set configulator.SetOrigin, file string) error {
 	if s.LogLevel != nil {
 		cfg.LogLevel = LogLevel(*s.LogLevel)
 		set("log-level", configulator.LayerFile, file)
@@ -107,17 +108,21 @@ func ConfigPFlagHooks() cpflag.Hooks[Config] {
 	}
 }
 func configRegisterPFlags(fs *pflag.FlagSet, o *cpflag.Options) error {
-	for _, name := range []string{strings.Join([]string{"log-level"}, o.Separator), strings.Join([]string{"http", "bind"}, o.Separator), strings.Join([]string{"http", "port"}, o.Separator)} {
-		if fs.Lookup(name) != nil {
-			return fmt.Errorf("flag --%s already registered on this FlagSet", name)
+	names := []string{strings.Join([]string{"log-level"}, o.Separator), strings.Join([]string{"http", "bind"}, o.Separator), strings.Join([]string{"http", "port"}, o.Separator)}
+	for i, name := range names {
+		if fs.Lookup(name) != nil || slices.Contains(names[:i], name) {
+			return &configulator.FlagConflictError{
+				Existing: name,
+				Flag:     name,
+			}
 		}
 	}
-	fs.String(strings.Join([]string{"log-level"}, o.Separator), "info", "Logging level for the application. One of debug, info, warn, or error")
-	fs.String(strings.Join([]string{"http", "bind"}, o.Separator), "[::]", "Address to listen on. The default, [::], listens on all interfaces")
-	fs.Int(strings.Join([]string{"http", "port"}, o.Separator), 8080, "Port to listen on")
+	fs.String(names[0], "info", "Logging level for the application. One of debug, info, warn, or error")
+	fs.String(names[1], "[::]", "Address to listen on. The default, [::], listens on all interfaces")
+	fs.Int(names[2], 8080, "Port to listen on")
 	return nil
 }
-func configApplyPFlags(cfg *Config, fs *pflag.FlagSet, o *cpflag.Options, set configulator.SetOrigin) error {
+func configApplyPFlags(cfg *Config, fs *pflag.FlagSet, o *cpflag.Options, sep string, set configulator.SetOrigin) error {
 	if n := strings.Join([]string{"log-level"}, o.Separator); fs.Changed(n) {
 		v, err := fs.GetString(n)
 		if err != nil {

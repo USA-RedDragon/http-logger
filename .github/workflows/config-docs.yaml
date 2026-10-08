@@ -16,7 +16,7 @@ jobs:
   config-docs:
     permissions:
       contents: read
-    uses: USA-RedDragon/reusable-actions/.github/workflows/configulator-docs.yaml@00e40df683692a549b308cdd2c136ccbcb4c98a0 # main
+    uses: USA-RedDragon/reusable-actions/.github/workflows/configulator-docs.yaml@00e40df683692a549b308cdd2c136ccbcb4c98a0 # v2.0.32
     with:
       dir: internal/config
       type: Config

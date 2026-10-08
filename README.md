@@ -14,6 +14,6 @@ Configuration is read from `config.yaml` in the working directory (or the file p
 |-------------|---------|---------|-------------|---------------|-----------------------------------------------------------------------|
 | `log-level` | string  | `info`  | `LOG_LEVEL` | `--log-level` | Logging level for the application. One of debug, info, warn, or error |
 | `http.bind` | string  | `[::]`  | `HTTP_BIND` | `--http.bind` | Address to listen on. The default, [::], listens on all interfaces    |
-| `http.port` | integer | `8080`  | `HTTP_PORT` | `--http.port` | Port to listen on                                                     |
+| `http.port` | integer | `8080`  | `HTTP_PORT` | `--http.port` | TCP port to listen on                                                 |
 
 <!-- configulator:end -->

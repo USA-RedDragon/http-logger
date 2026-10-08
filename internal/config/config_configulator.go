@@ -113,7 +113,7 @@ func configRegisterPFlags(fs *pflag.FlagSet, o *cpflag.Options) error {
 		}
 	}
 	fs.String(strings.Join([]string{"log-level"}, o.Separator), "info", "Logging level for the application. One of debug, info, warn, or error")
-	fs.String(strings.Join([]string{"http", "bind"}, o.Separator), "[::]", "Address to listen on")
+	fs.String(strings.Join([]string{"http", "bind"}, o.Separator), "[::]", "Address to listen on. The default, [::], listens on all interfaces")
 	fs.Int(strings.Join([]string{"http", "port"}, o.Separator), 8080, "Port to listen on")
 	return nil
 }

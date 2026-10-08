@@ -1,10 +1,9 @@
-# Copy this file to config.yaml and modify it to suit your needs.
-
-# Logging level (debug, info, warn, error)
-log-level: info
-
+# Sample configuration for Config.
+# Logging level for the application. One of debug, info, warn, or error
+log-level: "info"
 # HTTP server configuration
 http:
-  # IPv6 wildcard, listens on all interfaces
+  # Address to listen on. The default, [::], listens on all interfaces
   bind: "[::]"
+  # Port to listen on
   port: 8080

@@ -21,7 +21,7 @@ type Config struct {
 }
 
 type HTTP struct {
-	Bind string `name:"bind" description:"Address to listen on" default:"[::]"`
+	Bind string `name:"bind" description:"Address to listen on. The default, [::], listens on all interfaces" default:"[::]"`
 	Port int    `name:"port" description:"Port to listen on" default:"8080"`
 }
 

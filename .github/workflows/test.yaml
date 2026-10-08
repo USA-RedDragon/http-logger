@@ -109,21 +109,12 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
-      checks: write
-      pull-requests: write
 
     steps:
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ vars.AUTO_COMMIT_APP_ID }}
-          private-key: ${{ secrets.AUTO_COMMIT_APP_KEY }}
-
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
 
       - name: Set up Go
         uses: actions/setup-go@v6
@@ -137,14 +128,6 @@ jobs:
           env CGO_ENABLED=0 go test -v ./... -coverprofile coverage.raw -coverpkg=./... -covermode atomic
           grep -v -e '_configulator\.go:' coverage.raw > coverage.out
 
-      - uses: USA-RedDragon/reusable-actions/coverage@v2
-        if: always()
-        with:
-          file: coverage.out
-          token: ${{ steps.app-token.outputs.token }}
-          git-user-name: usa-reddragon-auto-commit-bot[bot]
-          git-user-email: usa-reddragon-auto-commit-bot[bot]@users.noreply.github.com
-
       - uses: actions/upload-artifact@v5
         if: always()
         with:
@@ -152,3 +135,16 @@ jobs:
           path: coverage.out
           if-no-files-found: error
           retention-days: 30
+
+  coverage:
+    needs: backend-unit-tests-coverage
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: USA-RedDragon/reusable-actions/.github/workflows/coverage.yaml@3db5e8ff119a0b1c80ab6e22e2ae95a967314b50 # main
+    with:
+      artifact: backend-coverage
+      file: coverage.out
+      app-id: ${{ vars.AUTO_COMMIT_APP_ID }}
+    secrets:
+      app-key: ${{ secrets.AUTO_COMMIT_APP_KEY }}

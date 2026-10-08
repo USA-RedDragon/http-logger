@@ -141,7 +141,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: USA-RedDragon/reusable-actions/.github/workflows/coverage.yaml@3db5e8ff119a0b1c80ab6e22e2ae95a967314b50 # main
+    uses: USA-RedDragon/reusable-actions/.github/workflows/coverage.yaml@d2474932549b3213defffc832aa0950ea2c48e48 # main
     with:
       artifact: backend-coverage
       file: coverage.out

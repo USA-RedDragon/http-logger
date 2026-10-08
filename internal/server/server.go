@@ -60,7 +60,7 @@ func logRequest(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func NewServer(config *config.Config, version string, commit string) (*Server, error) {
+func NewServer(config *config.Config, _ string, _ string) (*Server, error) {
 	return &Server{
 		server: &http.Server{
 			Addr:              fmt.Sprintf("%s:%d", config.HTTP.Bind, config.HTTP.Port),
@@ -75,7 +75,7 @@ func NewServer(config *config.Config, version string, commit string) (*Server, e
 func (s *Server) Start() error {
 	waitGrp := sync.WaitGroup{}
 	if s.server != nil {
-		listener, err := net.Listen("tcp", s.server.Addr)
+		listener, err := (&net.ListenConfig{}).Listen(context.Background(), "tcp", s.server.Addr)
 		if err != nil {
 			return err
 		}

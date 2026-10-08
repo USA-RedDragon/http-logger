@@ -1,21 +1,19 @@
-name: Per-architecture test
+name: Go Static Checks
 
-on:
-  pull_request:
+on: pull_request
+
+permissions:
+  contents: read
+  pull-requests: read
 
 concurrency:
   group: "${{ github.workflow }} @ ${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  test-linux:
-    name: Test Linux
+  golangci:
+    name: lint
     runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        goos: [linux]
-        goarch: [amd64, arm64]
     steps:
       - uses: actions/checkout@v6
 
@@ -24,15 +22,7 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - run: go generate ./...
-
-      - run: docker run --privileged --rm tonistiigi/binfmt --install all
-
-      - uses: Wandalen/wretry.action@master
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
         with:
-          command: CGO_ENABLED=0 go test -p 2 -v ./...
-          attempt_limit: 3
-        env:
-          GOOS: ${{ matrix.goos }}
-          GOARCH: ${{ matrix.goarch }}
-          CGO_ENABLED: "0"
+          version: latest

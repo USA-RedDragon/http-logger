@@ -17,3 +17,4 @@ Configuration is read from `config.yaml` in the working directory (or the file p
 | `http.port` | integer | `8080`  | `HTTP_PORT` | `--http.port` | Port to listen on                                                     |
 
 <!-- configulator:end -->
+

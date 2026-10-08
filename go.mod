@@ -3,7 +3,7 @@ module github.com/USA-RedDragon/http-logger
 go 1.27
 
 require (
-	github.com/USA-RedDragon/configulator/v2 v2.3.2
+	github.com/USA-RedDragon/configulator/v2 v2.4.0
 	github.com/goccy/go-yaml v1.19.2
 	github.com/lmittmann/tint v1.1.2
 	github.com/spf13/cobra v1.10.1

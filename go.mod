@@ -13,15 +13,15 @@ require (
 )
 
 require (
-	github.com/99designs/gqlgen v0.17.97 // indirect
-	github.com/agnivade/levenshtein v1.2.1 // indirect
+	github.com/99designs/gqlgen v0.17.98 // indirect
+	github.com/agnivade/levenshtein v1.2.2 // indirect
 	github.com/dave/jennifer v1.7.1 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/sosodev/duration v1.4.0 // indirect
 	github.com/urfave/cli/v3 v3.14.0 // indirect
-	github.com/vektah/gqlparser/v2 v2.5.63 // indirect
+	github.com/vektah/gqlparser/v2 v2.5.64 // indirect
 	golang.org/x/mod v0.42.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/tools v0.52.0 // indirect
